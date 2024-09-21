@@ -1,11 +1,12 @@
 import os
 import subprocess
+from security import safe_command
+
 for filename in os.listdir('./'):
     if os.access(filename, os.X_OK) and os.path.isfile(filename):
         f=open("APM_%s.txt" %filename, "w")
         print("Running %s" %filename)
-        p1=subprocess.Popen(
-           [
+        p1=safe_command.run(subprocess.Popen, [
                "./%s" %filename
            ],
            stdout=f,
